@@ -16,15 +16,17 @@ def print_board(board: numpy.ndarray):
     num_boards += 1
     boardaslist = board.tolist()
     print()
+    print(f"Board no. {num_boards}")
     for row in range(8):
         disp_string = ''
+        print('|' + '---|' * 8)
         for col in range(8):
             if boardaslist[row][col] == 1:
-                disp_string = f'{disp_string} Q'
+                disp_string = f'{disp_string}| Q '
             else:
-                disp_string = f'{disp_string} ·'
-        print(disp_string)
-    print(num_boards)
+                disp_string = f'{disp_string}|   '
+        print(disp_string + '|')
+    print('|' + '---|' * 8)
 
 def is_new_board(board: numpy.ndarray):
     '''
