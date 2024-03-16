@@ -10,6 +10,7 @@ def board_valid(row: int, col: int):
 
 board = numpy.zeros((8, 8))
 num_queens = 0
+pastnumqueens = 0
 
 def print_board():
     global board
@@ -23,21 +24,26 @@ def print_board():
                 disp_string = f'{disp_string} ·'
         print(disp_string)
 
-def recursive_solver(loc: int):
+def recursive_solver():
     '''
     A recursive function that solves stuff using backtracking.
     '''
     global board
     global num_queens
-    rowstart = loc // 8
-    colstart = loc % 8
-    for row in range(rowstart, 8):
-        for col in range(colstart, 8):
+    global pastnumqueens
+    for row in range(0, 8):
+        for col in range(0, 8):
             if board_valid(row, col):
                 board[row, col] = 1
                 num_queens += 1
+                recursive_solver()
+                if num_queens == 8:
+                    return
+                board[row, col] = 0
+                num_queens -= 1
+                pastnumqueens = num_queens
 
 
-recursive_solver(0)
+recursive_solver()
 
 print_board()
