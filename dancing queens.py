@@ -30,7 +30,6 @@ def recursive_solver():
     '''
     global board
     global num_queens
-    global pastnumqueens
     for row in range(0, 8):
         for col in range(0, 8):
             if board_valid(row, col):
@@ -41,7 +40,6 @@ def recursive_solver():
                     return
                 board[row, col] = 0
                 num_queens -= 1
-                pastnumqueens = num_queens
 
 
 recursive_solver()
