@@ -67,13 +67,12 @@ def recursive_solver(initrow: int):
 num_queens = 0
 num_boards = 0
 boards_list = []
+final_boards_list = []
 board_size = int(input("Please enter desired board size: "))
 board = numpy.zeros((board_size, board_size))
 recursive_solver(0)
 
 lenboardslist = len(boards_list)
-
-print(f"All possible positions of {board_size} queens on an {board_size}x{board_size} chess board such that no two queens attack each other:\n\n")
 
 if lenboardslist == 0:
     print("No boards found.")
@@ -81,4 +80,11 @@ if lenboardslist == 0:
 for i in range(lenboardslist):
     board_check = boards_list.pop(0)
     if is_new_board(board_check):
-        print_board(board_check)
+        final_boards_list.append(board_check)
+
+if lenboardslist == 0:
+    print("No boards found.")
+else:
+    print(f"\nAll {len(final_boards_list)} possible positions of {board_size} queens on an {board_size}x{board_size} chess board such that no queens can attack each other:\n")
+    for i in final_boards_list:
+        print_board(i)
