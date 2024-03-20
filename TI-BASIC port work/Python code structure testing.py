@@ -45,40 +45,53 @@ def is_new_board(board: numpy.ndarray):
                 return False
     return True
 
-def recursive_solver(initrow: int):
-    '''
-    A recursive function that solves stuff using backtracking.
-    '''
-    global board
-    global num_queens
-    global num_boards
-    global boards_list
-    global board_size
-    for col in range(board_size):
-        if board_valid(initrow, col):
-            board[initrow, col] = 1
-            if initrow >= (board_size - 1):
-                boards_list.append(board.copy())
-                board[initrow, col] = 0
-                return
-            recursive_solver(initrow + 1)
-            board[initrow, col] = 0
 
-num_queens = 0
 num_boards = 0
 boards_list = []
 board_size = int(input("Please enter desired board size: "))
 board = numpy.zeros((board_size, board_size))
-recursive_solver(0)
+Done = False
+loc_list = [0]
+
+while not Done:
+    row = len(loc_list) - 1
+    if board_valid(row, loc_list[row]):
+        board[row, loc_list[row]] = 1
+        if len(loc_list) == board_size:
+            print_board(board)
+            input("Press [Enter] to continue...")
+            counter = 1
+            board[row, loc_list[row]] = 0
+            loc_list.pop()
+            while loc_list[row - counter] == board_size - 1:
+                loc_list.pop()
+                counter += 1
+                board[row - counter, loc_list[row - counter]] = 0
+            loc_list[row - counter] += 1
+        else:
+            loc_list.append(0)
+    elif loc_list[row] == board_size - 1:
+        counter = 0
+        while loc_list[row - counter] == board_size - 1:
+            loc_list.pop()
+            counter += 1
+            board[row - counter, loc_list[row - counter]] = 0
+        loc_list[row - counter] += 1
+    else:
+        loc_list[row] += 1
+
+
+
 
 lenboardslist = len(boards_list)
-
-print(f"All possible positions of {board_size} queens on an {board_size}x{board_size} chess board such that no two queens attack each other:\n\n")
 
 if lenboardslist == 0:
     print("No boards found.")
 
-for i in range(lenboardslist):
-    board_check = boards_list.pop(0)
-    if is_new_board(board_check):
-        print_board(board_check)
+print_board(board)
+print(f"Loops: {loopvar}")
+
+#for i in range(lenboardslist):
+#    board_check = boards_list.pop(0)
+#    if is_new_board(board_check):
+#        print_board(board_check)
