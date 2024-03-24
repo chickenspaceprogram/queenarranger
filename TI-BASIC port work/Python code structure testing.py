@@ -1,3 +1,6 @@
+# Useless program now since I chose to stop working on it and instead write things up in pseudocode before implementing directly in TI-BASIC.
+# Still in the repository because why not share my errors
+
 import numpy
 def board_valid(row: int, col: int):
     '''
